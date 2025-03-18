@@ -22,9 +22,9 @@ require("lazy").setup({
     import = "nvchad.plugins",
   },
 
-  { import = "plugins" },
+  -- Directly load the plugins from the plugins module
+  require("plugins"),
 }, lazy_config)
-
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")

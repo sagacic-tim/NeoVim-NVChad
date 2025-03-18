@@ -19,14 +19,16 @@ return {
     end,
   },
 
+  -- Treesitter configuration
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim", "lua", "vimdoc",
-        "html", "css"
-      },
-    },
+    'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "lua", "python","go", "ruby", "php", "tsx", "css", "html", "javascript", "typescript"},  -- Specify the parsers you want
+        sync_install = false,             -- Prevent synchronous installation
+        auto_install = false,             -- Disable auto-installation on startup
+      }
+    end
   },
 }
 
