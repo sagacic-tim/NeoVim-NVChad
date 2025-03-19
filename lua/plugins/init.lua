@@ -30,5 +30,46 @@ return {
       }
     end
   },
+
+-- Add nvim-cmp for autocompletion
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      local cmp = require'cmp'
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            vim.fn["vsnip#expand"](args.body)
+          end,
+        },
+        mapping = {
+          ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-u>'] = cmp.mapping.scroll_docs(4),
+        },
+        sources = {
+          { name = 'nvim_lsp' },  -- LSP completions
+          { name = 'vsnip' },     -- Snippet completions
+          { name = 'buffer' },    -- Buffer completions (from the open buffer)
+          { name = 'path' },      -- Path completions
+        },
+      })
+    end
+  },
+
+ -- Add lspkind-nvim to add icons to completion
+  {
+    "onsails/lspkind-nvim",
+    config = function()
+      require('lspkind').init()
+    end
+  },
+
+  -- Add cmp-vsnip for snippet completion
+  {
+    "hrsh7th/cmp-vsnip"
+  },
+
 }
 
