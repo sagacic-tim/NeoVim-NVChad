@@ -31,7 +31,7 @@ return {
     end
   },
 
--- Add nvim-cmp for autocompletion
+  -- Add nvim-cmp for autocompletion
   {
     "hrsh7th/nvim-cmp",
     config = function()
@@ -58,7 +58,7 @@ return {
     end
   },
 
- -- Add lspkind-nvim to add icons to completion
+  -- Add lspkind-nvim to add icons to completion
   {
     "onsails/lspkind-nvim",
     config = function()
@@ -71,5 +71,27 @@ return {
     "hrsh7th/cmp-vsnip"
   },
 
-}
+  -- LSP configuration for Go (gopls)
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      -- General LSP setup
+      require "configs.lspconfig"
 
+      -- Go LSP configuration
+      require'lspconfig'.gopls.setup{
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "go.sum" },
+        root_dir = require'lspconfig'.util.root_pattern("go.mod", ".git"),
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+          },
+        },
+      }
+    end,
+  },
+}
